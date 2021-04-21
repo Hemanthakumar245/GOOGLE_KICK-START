@@ -1,0 +1,99 @@
+//Longest Increasing substring ending at each i 
+// such that 1<=i<=n
+import java.util.Scanner;
+import java.lang.String;
+import java.util.Arrays;
+public class Main
+{
+    //Brute Force Solution
+    ///TIME COMPLEXITY ---> O(N*N) <---
+    public static int[] strict_inc_substr1(String s)
+    {
+        int [] array= new int [s.length()];
+        for(int i=0;i<array.length;i++)  ///O(N)
+        {
+            array[i]=find(s.substring(0,i+1));        
+        }
+        return array;
+    }
+    public static int find (String s1)
+    {
+        int count;
+        if(s1.length()==1)
+            return 1;
+        else 
+        {
+             count =1;
+            for(int j=1;j<s1.length();j++)  ////O(N*N)
+            {
+              if(s1.charAt(j)>s1.charAt(j-1))
+              {
+                  count++;
+              }
+               if(s1.charAt(j)==s1.charAt(j-1)||s1.charAt(j)<s1.charAt(j-1))
+               {
+                   count=1;
+               }
+            }
+        }
+        return count;
+    }
+    //Dynamic Approach
+    /// TIME COMPLEXITY ---> O(N) <----
+    public static int[] strict_inc_substr2(String s)
+    {
+        int [] array= new int[s.length()];  /// Declaring an Array to store Result
+        //base conditions 
+        if(s.length()==0)
+            {
+                array[0]=0;
+                return array;
+            }
+        if(s.length()==1)
+            {
+                array[0]=1;
+                return array;
+            }
+        else 
+        {
+            array[0]=1;
+            for(int i=1;i<s.length();i++)
+            {
+                array[i]=1;
+                if(s.charAt(i)>s.charAt(i-1))
+                {
+                    array[i]+=array[i-1];
+                }
+                if(s.charAt(i)==s.charAt(i-1)||s.charAt(i)<s.charAt(i-1))
+                {
+                    continue;
+                }
+            }
+        }
+        return array;
+    }
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner (System.in);
+		
+	    System.out.println("Enter the String !!");
+	    String str= sc.nextLine().toUpperCase().trim();
+	    
+	    //Brute Force Solution 
+	    int [] arr= strict_inc_substr1(str);
+	    System.out.println("The output is"+Arrays.toString(arr));
+	    
+	    //Dynamic programming method 
+	    arr=strict_inc_substr2(str);
+	    System.out.println("The output is"+Arrays.toString(arr));
+	}
+	
+}
+
+
+
+
+
+
+
+ 
