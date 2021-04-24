@@ -1,0 +1,43 @@
+// Round A 
+
+//Min operations required for a string s with goodstring k 
+
+import java.util.Scanner;
+import java.lang.String;
+import java.util.Arrays;
+
+public class Main
+{
+    public static int find(String s)
+    {
+        char[] ch = s.toCharArray();
+        int size=ch.length/2;
+        int k=0;
+        for (int i=0;i<size;i++)
+        {
+            if(!(ch[i]==ch[ch.length-i-1]))
+            k++;
+        }
+        return k;
+    }
+    public static int solve(String s, int gs)
+    {
+        int x= find(s);
+        int minop=0;
+        if(x==gs)
+            minop=0;
+        else if(gs>x)
+            minop=gs-x;
+        else
+            minop=x-gs;
+        return minop;
+    }
+	public static void main(String[] args) 
+	{
+	  Scanner sc= new Scanner(System.in);
+	  String s= sc.nextLine().toUpperCase().trim();
+	  int gs=sc.nextInt();
+	  System.out.println("min operations for good string "+" "+s+" with goodstring length "+gs+" is "+solve(s,gs));
+	    
+	}
+}
